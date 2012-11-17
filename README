@@ -1,0 +1,20 @@
+Examples from "The Unix Programming Environment" book
+
+To run examples, use make:
+
+	% make hoc1
+	yacc  hoc1.y 
+	mv -f y.tab.c hoc1.c
+	/usr/bin/clang -I/usr/local/include/ -Wall -Wextra -pedantic   -c -o hoc1.o hoc1.c
+	hoc1.y:28:10: warning: unused parameter 'argc' [-Wunused-parameter]
+	main(int argc, char **argv)
+			 ^
+	1 warning generated.
+	/usr/bin/clang -L/usr/local/lib/  hoc1.o   -o hoc1
+	rm hoc1.o hoc1.c
+	% ./hoc1
+	3+4
+	7
+	^C
+
+Buy the book: http://www.amazon.com/dp/013937681X/
