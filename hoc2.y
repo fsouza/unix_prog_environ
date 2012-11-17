@@ -27,16 +27,16 @@ list:
 expr:	  NUMBER
 		| VAR			{ $$ = mem[$1]; }
 		| VAR '=' expr	{ $$ = mem[$1] = $3; }
-		| '-' expr		{ $$ = -$2; }
-		| expr '+' expr { $$ = $1 + $3; }
-		| expr '-' expr { $$ = $1 - $3; }
-		| expr '*' expr { $$ = $1 * $3; }
+		| '-' expr		{ $$ = mem['p'-'a'] = -$2; }
+		| expr '+' expr { $$ = mem['p'-'a'] = $1 + $3; }
+		| expr '-' expr { $$ = mem['p'-'a'] = $1 - $3; }
+		| expr '*' expr { $$ = mem['p'-'a'] = $1 * $3; }
 		| expr '/' expr {
 			if($3 == 0) {
 				execerror("division by zero", "");
 			}
-			$$ = $1 / $3; }
-		| '(' expr ')'  { $$ = $2; }
+			$$ = mem['p'-'a'] = $1 / $3; }
+		| '(' expr ')'  { $$ = mem['p'-'a'] = $2; }
 		;
 %%
 char *progname;
