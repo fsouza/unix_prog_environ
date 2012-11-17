@@ -1,3 +1,5 @@
 void yyerror(char *s, ...);
 void warning(char *s, char *t);
-int  yylex();
+void execerror(char *s, char *t);
+void fpecatch();
+int yylex();
