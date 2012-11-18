@@ -11,17 +11,38 @@
 %left   UNARYMINUS
 %%
 list:
-		| list '\n'
-		| list expr '\n' { printf("%.8g\n", $2); }
-		;
-expr:	  NUMBER		{ $$ = $1; }
-		| '-' expr		{ $$ = -$2; }
-		| expr '+' expr { $$ = $1 + $3; }
-		| expr '-' expr { $$ = $1 - $3; }
-		| expr '*' expr { $$ = $1 * $3; }
-		| expr '/' expr { $$ = $1 / $3; }
-		| '(' expr ')'  { $$ = $2; }
-		;
+|	list '\n'
+|	list expr '\n'
+	{
+		printf("%.8g\n", $2);
+	}
+
+expr:
+	NUMBER		{ $$ = $1; }
+|	'-' expr
+	{
+		$$ = -$2;
+	}
+|	expr '+' expr
+	{
+		$$ = $1 + $3;
+	}
+|	expr '-' expr
+	{
+		$$ = $1 - $3;
+	}
+|	expr '*' expr
+	{
+		$$ = $1 * $3;
+	}
+|	expr '/' expr
+	{
+		$$ = $1 / $3;
+	}
+|	'(' expr ')'
+	{
+		$$ = $2;
+	}
 %%
 char *progname;
 int  lineno = 1;
