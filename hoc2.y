@@ -20,24 +20,52 @@ double mem[26];
 %left   UNARYMINUS
 %%
 list:
-		| list '\n'
-		| list expr '\n'	{ printf("%.8g\n", $2); }
-		| list error '\n'	{ yyerrok; }
-		;
-expr:	  NUMBER
-		| VAR			{ $$ = mem[$1]; }
-		| VAR '=' expr	{ $$ = mem[$1] = $3; }
-		| '-' expr		{ $$ = mem['p'-'a'] = -$2; }
-		| expr '+' expr { $$ = mem['p'-'a'] = $1 + $3; }
-		| expr '-' expr { $$ = mem['p'-'a'] = $1 - $3; }
-		| expr '*' expr { $$ = mem['p'-'a'] = $1 * $3; }
-		| expr '/' expr {
-			if($3 == 0) {
-				execerror("division by zero", "");
-			}
-			$$ = mem['p'-'a'] = $1 / $3; }
-		| '(' expr ')'  { $$ = mem['p'-'a'] = $2; }
-		;
+|	list '\n'
+|	list expr '\n'
+	{
+		printf("%.8g\n", $2);
+	}
+|	list error '\n'
+	{
+		yyerrok;
+	}
+expr:
+	NUMBER
+|	VAR
+	{
+		$$ = mem[$1];
+	}
+|	VAR '=' expr
+	{
+		$$ = mem[$1] = $3;
+	}
+|	'-' expr
+	{
+		$$ = mem['p'-'a'] = -$2;
+	}
+|	expr '+' expr
+	{
+		$$ = mem['p'-'a'] = $1 + $3;
+	}
+|	expr '-' expr
+	{
+		$$ = mem['p'-'a'] = $1 - $3;
+	}
+|	expr '*' expr
+	{
+		$$ = mem['p'-'a'] = $1 * $3;
+	}
+|	expr '/' expr
+	{
+		if($3 == 0) {
+			execerror("division by zero", "");
+		}
+		$$ = mem['p'-'a'] = $1 / $3;
+	}
+|	'(' expr ')'
+	{
+		$$ = mem['p'-'a'] = $2;
+	}
 %%
 char *progname;
 int  lineno = 1;
