@@ -26,7 +26,7 @@ Symbol *lookup(char *s);
 
 extern Datum pop();
 
-typedef int (*Inst)();
+typedef void (*Inst)();
 
 #define STOP (Inst)0
 
@@ -34,6 +34,7 @@ extern Inst prog[];
 extern void eval(), add(), sub(), mul(), division(), negate(), power();
 extern void assign(), bltin(), varpush(), constpush(), print();
 
+Inst *code(Inst f);
 void init();
 void initcode();
 void execute(Inst *p);

@@ -86,7 +86,9 @@ jmp_buf begin;
 int
 main(int argc, char **argv)
 {
-	progname = argv[0];
+	if(argc > 0) {
+		progname = argv[0];
+	}
 	init();
 	setjmp(begin);
 	signal(SIGFPE, fpecatch);
